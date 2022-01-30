@@ -1,11 +1,13 @@
 import { ChangeEvent, useState, FC, useCallback } from "react";
 import styled from "styled-components";
+import { MemoList } from "./MemoList";
+import { useMemoList } from "../hooks/useMemoList";
 
 export const App: FC = () => {
+  // カスタムフックからそれぞれ取得
+  const { memos, addTodo, deleteTodo } = useMemoList();
   // テキストボックスState
   const [text, setText] = useState<string>("");
-
-  const [memos, setMemos] = useState<string[]>([]);
 
   // テキストボックス入力時に入力内容をStateに設定
   const onChangeText = (e: ChangeEvent<HTMLInputElement>) =>
@@ -13,45 +15,27 @@ export const App: FC = () => {
 
   // [追加]ボタン押下時
   const onClickAdd = () => {
-
-    const newMemos = [...memos];
-
-    newMemos.push(text);
-
-    setMemos(newMemos);
-
+    // カスタムフックのメモ追加ロジック実行
+    addTodo(text);
     // テキストボックスを空に
     setText("");
   };
 
   // [削除]ボタン押下時(何番目が押されたかを引数で受け取る)
-  const onClickDelete = (index: number) => {
-      const newMemos = [...memos];
-      newMemos.splice(index, 1);
-      setMemos(newMemos);
-  };
-
+  const onClickDelete = useCallback(
+    (index: number) => {
+      // カスタムフックのメモ削除ロジック実行
+      deleteTodo(index);
+    },
+    [deleteTodo]
+  );
 
   return (
     <div>
       <h1>Memo app</h1>
       <input type="text" value={text} onChange={onChangeText} />
       <SButton onClick={onClickAdd}>Add</SButton>
-      <SContainer>
-        <p>Display</p>
-        <ul>
-          {memos.map((memo, index) => (
-            <li key={memo}>
-              <SMemoWrapper>
-                <p>{memo}</p>
-                <SButton onClick={() => onClickDelete(index)}>
-                  Delete
-                </SButton>
-              </SMemoWrapper>
-            </li>
-          ))}
-        </ul>
-      </SContainer>
+      <MemoList memos={memos} onClickDelete={onClickDelete} />
     </div>
   );
 };
@@ -59,13 +43,3 @@ export const App: FC = () => {
 const SButton = styled.button`
   margin-left: 16px;
 `;
-const SContainer = styled.div`
-  border: solid 1px #ccc;
-  padding: 16px;
-  margin: 8px;
-`;
-const SMemoWrapper = styled.div`
-  display: flex;
-  align-items: center;
-`
-
