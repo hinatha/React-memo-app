@@ -1,4 +1,4 @@
-import { useCallback, useState } from 'react';
+import { useCallback, useState } from "react";
 
 // メモ一覧に関するカスタムフック
 const useMemoList = () => {
@@ -15,7 +15,7 @@ const useMemoList = () => {
       setMemos(newMemos);
       // 依存配列に忘れずにmemosを設定
     },
-    [memos],
+    [memos]
   );
 
   // メモ削除ロジック
@@ -27,7 +27,7 @@ const useMemoList = () => {
       newMemos.splice(index, 1);
       setMemos(newMemos);
     },
-    [memos],
+    [memos]
   );
 
   return { memos, addTodo, deleteTodo };

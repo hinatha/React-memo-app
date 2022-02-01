@@ -1,9 +1,7 @@
-import {
-  ChangeEvent, useState, FC, useCallback,
-} from 'react';
-import styled from 'styled-components';
-import MemoList from './MemoList';
-import useMemoList from '../hooks/useMemoList';
+import { ChangeEvent, useState, FC, useCallback } from "react";
+import styled from "styled-components";
+import MemoList from "./MemoList";
+import useMemoList from "../hooks/useMemoList";
 
 const SButton = styled.button`
   margin-left: 16px;
@@ -13,17 +11,18 @@ const App: FC = () => {
   // カスタムフックからそれぞれ取得
   const { memos, addTodo, deleteTodo } = useMemoList();
   // テキストボックスState
-  const [text, setText] = useState<string>('');
+  const [text, setText] = useState<string>("");
 
   // テキストボックス入力時に入力内容をStateに設定
-  const onChangeText = (e: ChangeEvent<HTMLInputElement>) => setText(e.target.value);
+  const onChangeText = (e: ChangeEvent<HTMLInputElement>) =>
+    setText(e.target.value);
 
   // [追加]ボタン押下時
   const onClickAdd = () => {
     // カスタムフックのメモ追加ロジック実行
     addTodo(text);
     // テキストボックスを空に
-    setText('');
+    setText("");
   };
 
   // [削除]ボタン押下時(何番目が押されたかを引数で受け取る)
@@ -32,7 +31,7 @@ const App: FC = () => {
       // カスタムフックのメモ削除ロジック実行
       deleteTodo(index);
     },
-    [deleteTodo],
+    [deleteTodo]
   );
 
   return (

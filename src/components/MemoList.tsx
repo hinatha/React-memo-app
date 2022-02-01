@@ -1,5 +1,5 @@
-import { FC } from 'react';
-import styled from 'styled-components';
+import { FC } from "react";
+import styled from "styled-components";
 
 // 必要なPropsはメモ一覧と削除時に実行する関数
 type Props = {
