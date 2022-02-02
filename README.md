@@ -30,6 +30,31 @@ $ npm install
 ```bash
 $ npm run start
 ```
- 
+
+# Test
+
+## Linter
+
+```bash
+$ npm run lint
+npm run lint
+
+> react-memo-app@0.1.0 lint
+> eslint --ext .jsx,.js,.tsx,.ts src/
+```
+
+## Formatter
+
+```bash
+$ npm run fmt
+> react-memo-app@0.1.0 fmt
+> prettier --write src/*
+
+src/components/App.tsx 65ms
+src/components/MemoList.tsx 21ms
+src/hooks/useMemoList.ts 8ms
+src/index.tsx 5ms
+```
+
 # Future plans
 - Develop backend with Node.js.
