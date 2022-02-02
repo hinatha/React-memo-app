@@ -1,9 +1,13 @@
 import { ChangeEvent, useState, FC, useCallback } from "react";
 import styled from "styled-components";
-import { MemoList } from "./MemoList";
-import { useMemoList } from "../hooks/useMemoList";
+import MemoList from "./MemoList";
+import useMemoList from "../hooks/useMemoList";
 
-export const App: FC = () => {
+const SButton = styled.button`
+  margin-left: 16px;
+`;
+
+const App: FC = () => {
   // カスタムフックからそれぞれ取得
   const { memos, addTodo, deleteTodo } = useMemoList();
   // テキストボックスState
@@ -34,12 +38,10 @@ export const App: FC = () => {
     <div>
       <h1>Memo app</h1>
       <input type="text" value={text} onChange={onChangeText} />
-      <SButton onClick={onClickAdd}>Add</SButton>
+      <SButton onClick={() => onClickAdd()}>Add</SButton>
       <MemoList memos={memos} onClickDelete={onClickDelete} />
     </div>
   );
 };
 
-const SButton = styled.button`
-  margin-left: 16px;
-`;
+export default App;
